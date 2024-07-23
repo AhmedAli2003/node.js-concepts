@@ -52,6 +52,9 @@ Here are some basic examples of how to use Buffers in Node.js:
 ### Creating a Buffer
 
 ```javascript
-// Create a buffer from a string
-const buffer = Buffer.from('Hello, world!', 'utf-8');
-console.log(buffer);
+const { Buffer } = require('buffer');
+
+// Create a new Buffer object with 4 bytes of allocated memory
+const memoryContainer = Buffer.alloc(4);
+
+console.log(memoryContainer); // <Buffer 00 00 00 00>
