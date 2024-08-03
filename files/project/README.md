@@ -8,7 +8,6 @@ This project is a Node.js application that processes a series of file commands f
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
     - [Usage](#usage)
   - [Commands](#commands)
     - [Example](#example)
@@ -18,21 +17,6 @@ This project is a Node.js application that processes a series of file commands f
 ### Prerequisites
 
 - Node.js (v12 or higher)
-
-### Installation
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/yourusername/file-command-processor.git
-    cd file-command-processor
-    ```
-
-2. Install the dependencies:
-
-    ```bash
-    npm install
-    ```
 
 ### Usage
 
