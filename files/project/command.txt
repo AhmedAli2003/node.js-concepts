@@ -1,1 +1,4 @@
-Hello World!
+create file job.txt;
+rename file job.txt node.txt;
+add to file node.txt Hello world from node.js fs module!;
+delete file test.txt;
