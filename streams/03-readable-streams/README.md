@@ -27,11 +27,12 @@ If you don't listen to `data` event, then the stream will not start reading any 
 ## Bad Approach
 
 The bad approach that may be used is to read data using a readable stream and write it using a writable stream in this way:
-```streamRead.on('data', (chunk) => {
+```javascript
+streamRead.on('data', (chunk) => {
     counter++;
     streamWrite.write(chunk);
-});```
-
+});
+```
 This way is bad because the writable stream will not be able to drain the data, so the internal buffer will increase it size and will use a huge amount of memory if the file we are writing is large.
 Also we should consider that the hard-drive reading is faster than writing, so we have a huge amount of data and no chance to writing them, so nodejs will start buffering the data like we saw previously (backpressure).
 
