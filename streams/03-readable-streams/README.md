@@ -18,9 +18,11 @@ When the buffer is fully filled, the stream object emits a 'data' event.
 You keep listening for these 'data' events to process incoming chunks of data.
 You can handle this event by running code like:
 
-`stream.on('data', (chunk) => {
+```javascript
+stream.on('data', (chunk) => {
     // Process the chunk
-});`
+});
+```
 
 If you don't listen to `data` event, then the stream will not start reading any data.
 
@@ -36,3 +38,21 @@ streamRead.on('data', (chunk) => {
 This way is bad because the writable stream will not be able to drain the data, so the internal buffer will increase it size and will use a huge amount of memory if the file we are writing is large.
 Also we should consider that the hard-drive reading is faster than writing, so we have a huge amount of data and no chance to writing them, so nodejs will start buffering the data like we saw previously (backpressure).
 
+## Good Approache
+
+This is the approach that should be used, it can handle very large files without any backpressure.
+
+```javascript
+  streamRead.on('data', (chunk) => {
+        if (!streamWrite.write(chunk)) {
+            streamRead.pause();
+        }
+    });
+
+    streamWrite.on('drain', () => {
+        streamRead.resume();
+    });
+```
+
+In this way, we let the writable stream to be drained, so it can accept data without buffering it.
+In some situations, we may need to make readable stream chunks size = 16 KB, and we may make more conditions when we need to write into a database or a card network, but this is the base idea.

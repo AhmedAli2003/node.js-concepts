@@ -1,10 +1,5 @@
 const fs = require('node:fs/promises');
 
-// In this way, writing is very fast, because we read the stream in 64 Kb chunks, then we
-// write on the file in little times.
-
-// If we use big files, the computer will be freezed.
-
 (async () => {
     const fileHandlerRead = await fs.open('test.txt', 'r');
     const fileHandlerWrite = await fs.open('dest.txt', 'w');
@@ -16,7 +11,17 @@ const fs = require('node:fs/promises');
 
     streamRead.on('data', (chunk) => {
         counter++;
-        streamWrite.write(chunk);
+        // When the writable stream buffer is filled, we will pause the readable stream, to let the
+        // writable stream to continue writing on it.
+        if (!streamWrite.write(chunk)) {
+            streamRead.pause();
+        }
+    });
+
+    // When the writable stream buffer is empty, we will resume the readable stream, to let it
+    // start reading from the file again.
+    streamWrite.on('drain', () => {
+        streamRead.resume();
     });
 
     streamRead.on('close', () => {
