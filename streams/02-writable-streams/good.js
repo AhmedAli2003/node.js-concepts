@@ -14,7 +14,7 @@ const fs = require('node:fs/promises');
     const writeData = () => {
         let canWrite = true;
         while (i < 1e6 && canWrite) {
-            canWrite = stream.write(`a`);
+            canWrite = stream.write(`${i}\n`);
 
             // If the the last writing operation, we will end the stream
             // Writing on the stream after it is ended will cause an error.
