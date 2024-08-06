@@ -43,15 +43,15 @@ Also we should consider that the hard-drive reading is faster than writing, so w
 This is the approach that should be used, it can handle very large files without any backpressure.
 
 ```javascript
-  streamRead.on('data', (chunk) => {
-        if (!streamWrite.write(chunk)) {
-            streamRead.pause();
-        }
-    });
+streamRead.on('data', (chunk) => {
+    if (!streamWrite.write(chunk)) {
+        streamRead.pause();
+    }
+});
 
-    streamWrite.on('drain', () => {
-        streamRead.resume();
-    });
+streamWrite.on('drain', () => {
+    streamRead.resume();
+});
 ```
 
 In this way, we let the writable stream to be drained, so it can accept data without buffering it.
