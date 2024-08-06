@@ -41,7 +41,9 @@ Here are some observations:
 The some empty strings is because the chunk may have `\n` in the first or last index, and we split using `split` method according to `\n`, because of this, the `split` method return an empty string.
 
 To slove this we need to ensure removing any `\n` from the start of end of the chunk.
-```const str = chunk.toString('utf-8').replace(/^\n+|\n+$/g, '');```.
+```
+const str = chunk.toString('utf-8').replace(/^\n+|\n+$/g, '');
+```.
 
 To slove the second problem, we need to merge the last element of the chunk with the first element of the next chunk.
 
