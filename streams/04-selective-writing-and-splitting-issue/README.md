@@ -43,7 +43,7 @@ The some empty strings is because the chunk may have `\n` in the first or last i
 To slove this we need to ensure removing any `\n` from the start of end of the chunk.
 ```
 const str = chunk.toString('utf-8').replace(/^\n+|\n+$/g, '');
-```.
+```
 
 To slove the second problem, we need to merge the last element of the chunk with the first element of the next chunk.
 
